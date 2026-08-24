@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFEFRUIT AI Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-panel main-header">
+            <div class="header-left">
+                <div class="logo">
+                    <h1>SAFEFRUIT <span>AI</span></h1>
+                    <p class="subtitle">Smart Automated Fruit Evaluation</p>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="status-badge" id="system-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text" id="status-text-val">INITIALIZING</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="datetime">
+                    <div id="current-date">--/--/----</div>
+                    <div id="current-time">--:--:--</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Column: Camera Feed -->
+            <section class="camera-section glass-panel">
+                <div class="section-header">
+                    <h2>Live Inspection Feed</h2>
+                    <span id="camera-status" class="status-tag">Connecting...</span>
+                </div>
+                <div class="camera-container">
+                    <img id="video-feed" src="" data-src="/video_feed" alt="Camera Feed" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxZTFlMWUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iIzQ0NCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjRweCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNhbWVyYSBPZmZsaW5lPC90ZXh0Pjwvc3ZnPg==';">
+                    
+                    <div class="inspection-overlay" id="inspection-overlay">
+                        <div class="stage-indicator" id="stage-text">READY</div>
+                    </div>
+                </div>
+                
+                <div class="controls-container">
+                    <button id="start-btn" class="primary-btn glow-effect">START INSPECTION</button>
+                    <button id="stop-btn" class="secondary-btn">STOP</button>
+                </div>
+                
+                <div class="system-log-container">
+                    <h3>System Logs</h3>
+                    <div class="system-log-box" id="system-log-box">
+                        <!-- Logs appended here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Telemetry and Results -->
+            <section class="data-section">
+                
+                <!-- Telemetry Widget -->
+                <div class="glass-panel telemetry-widget">
+                    <div class="section-header">
+                        <h2>Hardware Telemetry</h2>
+                        <span id="arduino-status" class="status-tag">Connecting...</span>
+                    </div>
+                    <div class="sensor-grid">
+                        <div class="sensor-card">
+                            <div class="sensor-icon">💨</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">MQ135 Gas</span>
+                                <span class="sensor-value" id="val-mq135">--</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">💧</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">pH Level</span>
+                                <span class="sensor-value" id="val-ph">--</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">⚙️</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Conveyor</span>
+                                <span class="sensor-value" id="val-conveyor">OFF</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">🚿</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Washing</span>
+                                <span class="sensor-value" id="val-washing">OFF</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">☀️</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">UV Sterilization</span>
+                                <span class="sensor-value" id="val-uv">OFF</span>
+                            </div>
+                        </div>
+
+                        <div class="sensor-card">
+                            <div class="sensor-icon">📏</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Distance</span>
+                                <span class="sensor-value" id="val-distance">--</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">🚪</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Stage 1 Gate</span>
+                                <span class="sensor-value" id="val-stage1-door">--</span>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <div class="sensor-icon">🚪</div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Stage 3 Gate</span>
+                                <span class="sensor-value" id="val-stage3-door">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Results Widget -->
+                <div class="glass-panel results-widget">
+                    <div class="section-header">
+                        <h2>AI Analysis Results</h2>
+                        <span id="api-status" class="status-tag">Connecting...</span>
+                    </div>
+                    <div class="results-container">
+                        <div class="main-result" id="result-status-box">
+                            <h3 id="result-fruit">--</h3>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidence-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="confidence-text"><span id="result-confidence">0</span>% Confidence</span>
+                        </div>
+                        
+                        <div class="result-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Status:</span>
+                                <span class="detail-value" id="result-status">--</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Defects:</span>
+                                <span class="detail-value" id="result-defects">--</span>
+                            </div>
+                            <div class="detail-row reason-row">
+                                <span class="detail-label">Reasoning:</span>
+                                <p class="detail-value reason-text" id="result-reason">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        
+        <!-- Bottom Process Log -->
+        <footer class="glass-panel log-section">
+            <div class="log-content">
+                <span class="log-label">Current Operation:</span>
+                <span class="log-text" id="current-operation">Waiting for START</span>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" id="tab-dashboard">Dashboard</button>
+                <button class="tab-btn" id="tab-chat">API Chat Test</button>
+                <button class="tab-btn" id="tab-settings">Settings</button>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Modals (Settings & History) -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>System Settings</h2>
+                <button class="close-btn" onclick="document.getElementById('settings-modal').classList.add('hidden')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Camera Index</label>
+                    <input type="number" id="input-camera-index" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Arduino COM Port</label>
+                    <input type="text" id="input-com-port" placeholder="e.g. COM3">
+                </div>
+                <div class="form-group">
+                    <label>Gemini API Key</label>
+                    <input type="password" id="input-api-key" placeholder="Enter API Key">
+                </div>
+                
+                <div class="test-buttons">
+                    <button id="test-cam-btn" class="secondary-btn">Test Camera</button>
+                    <button id="test-ard-btn" class="secondary-btn">Test Arduino</button>
+                    <button id="test-api-btn" class="secondary-btn">Test API</button>
+                </div>
+                
+                <button id="save-settings-btn" class="primary-btn" style="margin-top: 16px; width: 100%;">Save Settings</button>
+                <p id="settings-msg" style="margin-top: 10px; color: #4ADE80;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Test Modal -->
+    <div id="chat-modal" class="modal hidden">
+        <div class="modal-content glass-panel modal-chat">
+            <div class="modal-header">
+                <h2>AI Chat Key Tester</h2>
+                <button class="close-btn" onclick="document.getElementById('chat-modal').classList.add('hidden')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 12px; font-size: 0.9rem; opacity: 0.8;">Send messages directly to the Gemini AI API to verify your key is functioning correctly.</p>
+                <div class="chat-messages-container" id="chat-messages" style="height: 250px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--panel-border); padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;">
+                    <div class="chat-bubble ai" style="margin-bottom: 8px; padding: 8px 12px; border-radius: 8px; background: rgba(37, 99, 235, 0.2); max-width: 80%; display: inline-block;">Hello! Type a message below to test the connection.</div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="chat-input-text" placeholder="Type a message to Gemini..." style="flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--panel-border); border-radius: 6px; color: white;">
+                    <button id="send-chat-btn" class="primary-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
