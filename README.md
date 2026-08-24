@@ -23,14 +23,33 @@ The system consists of a Python Flask backend, a web frontend dashboard, and an 
 7. Fruit is routed based on the AI analysis (e.g., washing, sorting).
 
 ## Hardware
-- Arduino Microcontroller
-- MQ135 Gas Sensor
+- Arduino Nano
+- USB Camera
+- L298N Motor Driver – 2
+- 12V DC Motor – 2
+- HC-SR04 Ultrasonic Sensor
 - pH Sensor
-- Ultrasonic Distance Sensor
-- USB Web Camera
-- Conveyor Belt Motor
-- Washing Pump Motor
-- Stage Gates (Servos/Motors)
+- MQ-135 Gas Sensor
+- mg90s servo
+- mg996r servo -2 
+- Servo Driver Module
+- Water Pump – 2
+- Relay Module -1
+- UV LED Strip
+- 12V Battery
+- Buck Converter
+- Conveyor Belt
+- PVC/Aluminium Frame
+- Jumper Wires
+- PCB/Perfboard
+- Terminal Blocks
+- Screws & Nuts
+- Power Switch
+- Connecting Wires
+- Water Tank
+- Water Pipes/Tube
+- Fruit Collection Tray
+- Laptop/PC for AI Processing
 
 ## Software
 - Python 3
