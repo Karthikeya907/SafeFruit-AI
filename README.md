@@ -143,6 +143,8 @@ After all connections and tests are successful:
 
 Active Development.
 
-## Future Scope
+## For More Details
+Please refer the project documetation.
+## To Open The Web Application Run "savefruit_app.py" File.
 
-Further enhancements to the AI model for broader fruit classification, improved sorting mechanisms, and historical data analytics.
+
